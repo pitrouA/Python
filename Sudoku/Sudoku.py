@@ -15,6 +15,8 @@ import os
 
 class Sudoku:
 
+    NB_SOL = 20
+
     def __init__(self):
         self.problem = constraint.Problem() #le probleme a resoudre
         self.addSudokuConstraints()
@@ -88,14 +90,14 @@ class Sudoku:
     def getSolutions(self):
         solutions = []
         iter = self.problem.getSolutionIter()
-        for _ in range(1,5):
+        for _ in range(1,self.NB_SOL):
             solution = None
             try:
                 solution = iter.__next__() #recupere la prochaine solution
             except Exception:
                 break
             solutions.append(solution)#list(solution.values())
-            print(solution)
+            #print(solution)
         return solutions
         # print(self.problem.getSolutions())
         # return self.problem.getSolutions()

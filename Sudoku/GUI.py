@@ -22,53 +22,34 @@ class GUI(App):
         6: (0, 0.5, 0.5, 1),
         7: (0.5, 0, 0.5, 1),
         8: (0.3, 0.3, 0.3, 1),
-        9: (0.7, 0.7, 0.7, 1),
+        9: (0.7, 0.7, 0.3, 1),
         0: (1, 1, 1, 1)
     } 
 
-    DIFFICULTY = 23
+    DIFFICULTY = 10
 
     selected_number = 1
 
     def on_button_press(self, obj:Button):
-        print("Typical event from", obj)
         #obj.background_color = self.switcher.get(self.board.getValue(i,j))
         for i in range (1,10):
             for j in range (1,10):
                 if self.buttonList[(i-1)*9+(j-1)] == obj: #objet trouve
-                    print("objet trouve : "+str(i*10+j))
                     self.board.setValue(self.selected_number,i,j)
                     obj.text = str(self.selected_number)
+        self.unableButtonsIfNecessary() #desactive les lignes / colonnes et blocs nouvellement concernes
             
         if(obj.text == ''):
             obj.background_color = (1, 1, 1, 1)
         else:
             obj.background_color = self.switcher.get(int(obj.text),(1, 1, 1, 1))
 
-    def newGame(self):
-        #-------------------------algo------------------------------
-        jeu = Sudoku.Sudoku()
-        jeu.addEqualsConstraintsToBoard(self.board.getBoard()) #ajoute les contraintes d'egalite sur les nombres deja presents
-        print("solve start")
-        solutions = Solutions.Solutions(jeu)
-        print("solve end")
-        #pas de solution
-        while solutions.getSolutionNumber() > 1 :
-            caseMax = solutions.getMaxCorrelationCase(self.board)
-            self.board.setValue(solutions.getSolution(0).getValue(caseMax[0],caseMax[1]),caseMax[0], caseMax[1])
-            print(self.board)
-            jeu.clearEqualsConstraints()
-            jeu.addEqualsConstraintsToBoard(self.board.getBoard())
-            solutions = Solutions.Solutions(jeu)
-        #-----------------------------------------------------------
-        if(solutions.getSolutionNumber==0):
-            print("No solution")
-            return False
-        print(self.board)
+    def setButtonUpdate(self):
         self.updateButtonsColor()
         for i in range(1,10):
             for j in range(1,10):
                 self.buttonList[(i-1)*9+(j-1)].text = '' #reset du texte de bouton
+                self.buttonList[(i-1)*9+(j-1)].disabled = False
                 if(self.board.getValue(i,j) != 0):
                     self.buttonList[(i-1)*9+(j-1)].text = str(self.board.getValue(i,j))
                     background_normal = self.buttonList[(i-1)*9+(j-1)].background_normal
@@ -76,16 +57,48 @@ class GUI(App):
                     self.buttonList[(i-1)*9+(j-1)].disabled = True #desactive les nombres deja places
                     self.buttonList[(i-1)*9+(j-1)].background_disabled_normal = background_normal #remet la couleur de fond
                     self.buttonList[(i-1)*9+(j-1)].color = (1,1,1,1) #remet la couleur de texte
-        print(self.board)
+
+    def newGame(self):
+        #-------------------------algo------------------------------
+        jeu = Sudoku.Sudoku()
+        jeu.addEqualsConstraintsToBoard(self.board.getBoard()) #ajoute les contraintes d'egalite sur les nombres deja presents
+        #print("solve start")
+        solutions = Solutions.Solutions(jeu)
+        #print("solve end")
+        #pas de solution
+        while solutions.getSolutionNumber() > 1 :
+            caseMax = solutions.getMaxCorrelationCase(self.board)
+            self.board.setValue(solutions.getSolution(0).getValue(caseMax[0],caseMax[1]),caseMax[0], caseMax[1])
+            print("Algo Board new Game while : "+str(self.board))
+            jeu.clearEqualsConstraints()
+            jeu.addEqualsConstraintsToBoard(self.board.getBoard())
+            solutions = Solutions.Solutions(jeu)
+        #-----------------------------------------------------------
+        if(solutions.getSolutionNumber()==0):
+            print("No solution")
+            return False
+        print("new game of GUI : \n"+str(solutions))
+        self.setButtonUpdate()
+        #print(self.board)
         return True
+
+    def unableButtonsIfNecessary(self):
+        #desactive les boutons si necessaire
+        board = self.board.computeMatrixPossible(self.selected_number)
+        for i in range(1,10):
+            for j in range(1,10):
+                self.buttonList[(i-1)*9+(j-1)].disabled = False
+                if board.getValue(i,j)==1:
+                    self.buttonList[(i-1)*9+(j-1)].disabled = True
 
     def on_select_number(self, obj:Button):
         self.buttonListNumbers[self.selected_number-1].color = (1,1,1,1) #passe l'ancien bouton en blanc
         self.selected_number = int(obj.text)
+        self.unableButtonsIfNecessary()
         self.buttonListNumbers[self.selected_number-1].color = (1,0,0,1) #passe le nouveau bouton en rouge
 
     def on_load_game(self, obj:Button):
-        print("load game")
+        #print("load game")
         absolute_path = os.path.dirname(os.path.abspath(__file__)) #chemin absolu du fichier
         file_name = "sudoku" #nom du fichier du sudoku test
         
@@ -93,7 +106,7 @@ class GUI(App):
         self.newGame()
 
     def on_new_game(self, obj:Button):
-        print("new game")
+        #print("new game")
         
         self.board = Board.Board()
         verite = self.board.setNumberAlea(self.DIFFICULTY)
@@ -102,7 +115,6 @@ class GUI(App):
         verite = self.newGame()
         while not verite:
             verite = self.newGame()
-        
         
 
     def updateButtonsColor(self):

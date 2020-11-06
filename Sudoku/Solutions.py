@@ -14,6 +14,7 @@ class Solutions:
         return ret
 
     def getSolutionNumber(self):
+        print("getSolutionNumber : \n"+str(self.solutions)+" "+str(len(self.solutions)))
         return len(self.solutions)
 
     def getSolution(self, num:int):

@@ -18,6 +18,31 @@ class Board:
             for _ in range(0,10):
                 self.board.append(0)
 
+    def computeMatrixPossible(self, num:int):
+
+        board = Board()
+
+        for i in range(1,10):
+            for j in range(1,10):
+                #print(i,j)
+                if self.getValue(i,j) != 0: #on trouve une valeur quelconque -> impossible de mettre un nombre sur cette case
+                    board.setValue(1,i,j)
+                    if self.getValue(i,j) == num: #on bloque egalement les lignes, colonnes et bloc
+                        #lignes
+                        for j_loc in range(1,10):
+                            board.setValue(1,i,j_loc)
+                        #colonnes
+                        for i_loc in range(1,10):
+                            board.setValue(1,i_loc,j)
+                        #bloc
+                        i_bloc = int((i-1)-((i-1)%3))
+                        j_bloc = int((j-1)-((j-1)%3))
+                        for i_loc in range(1,4):
+                            for j_loc in range(1,4):
+                                board.setValue(1,i_bloc+i_loc,j_bloc+j_loc)
+        #print(board)
+        return board
+
     def setNumberAlea(self, number:int):
         self.fillBlank()
 
@@ -38,9 +63,10 @@ class Board:
                     possible_j.append(j_loc)
             if len(possible_j)==1:
                 j = possible_j[0]
-            if len(possible_j)==0:
+            elif len(possible_j)<1:
                 return False
-            j = possible_j[randrange(1,len(possible_j))]
+            else:
+                j = possible_j[randrange(1,len(possible_j))]
 
             #lines
             for i_loc in range(1,10):
@@ -63,12 +89,13 @@ class Board:
                 if true_num[i_loc]:
                     possible_num.append(i_loc)
             if len(possible_num)==1:
-                j = possible_num[0]
-            if len(possible_num)==0:
+                num = possible_num[0]
+            elif len(possible_num)<1:
                 return False
-            num = possible_num[randrange(1,len(possible_num))]
+            else:
+                num = possible_num[randrange(1,len(possible_num))]
 
-            print(str(num),str(i),str(j))
+            #print(str(num),str(i),str(j))
 
             #adding random num to grid with alea coordinates
             self.setValue(num,i,j)
