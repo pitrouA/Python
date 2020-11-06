@@ -28,9 +28,18 @@ class GUI(App):
 
     DIFFICULTY = 23
 
+    selected_number = 1
+
     def on_button_press(self, obj:Button):
         print("Typical event from", obj)
         #obj.background_color = self.switcher.get(self.board.getValue(i,j))
+        for i in range (1,10):
+            for j in range (1,10):
+                if self.buttonList[(i-1)*9+(j-1)] == obj: #objet trouve
+                    print("objet trouve : "+str(i*10+j))
+                    self.board.setValue(self.selected_number,i,j)
+                    obj.text = str(self.selected_number)
+            
         if(obj.text == ''):
             obj.background_color = (1, 1, 1, 1)
         else:
@@ -62,10 +71,20 @@ class GUI(App):
                 self.buttonList[(i-1)*9+(j-1)].text = '' #reset du texte de bouton
                 if(self.board.getValue(i,j) != 0):
                     self.buttonList[(i-1)*9+(j-1)].text = str(self.board.getValue(i,j))
+                    background_normal = self.buttonList[(i-1)*9+(j-1)].background_normal
+                    #self.buttonList[(i-1)*9+(j-1)].disabled_color = self.buttonList[(i-1)*9+(j-1)].background_color
+                    self.buttonList[(i-1)*9+(j-1)].disabled = True #desactive les nombres deja places
+                    self.buttonList[(i-1)*9+(j-1)].background_disabled_normal = background_normal #remet la couleur de fond
+                    self.buttonList[(i-1)*9+(j-1)].color = (1,1,1,1) #remet la couleur de texte
         print(self.board)
         return True
 
-    def on_load_game(self, obj):
+    def on_select_number(self, obj:Button):
+        self.buttonListNumbers[self.selected_number-1].color = (1,1,1,1) #passe l'ancien bouton en blanc
+        self.selected_number = int(obj.text)
+        self.buttonListNumbers[self.selected_number-1].color = (1,0,0,1) #passe le nouveau bouton en rouge
+
+    def on_load_game(self, obj:Button):
         print("load game")
         absolute_path = os.path.dirname(os.path.abspath(__file__)) #chemin absolu du fichier
         file_name = "sudoku" #nom du fichier du sudoku test
@@ -73,7 +92,7 @@ class GUI(App):
         self.board = Board.Board(absolute_path +"/"+file_name+"3.json")
         self.newGame()
 
-    def on_new_game(self, obj):
+    def on_new_game(self, obj:Button):
         print("new game")
         
         self.board = Board.Board()
@@ -94,6 +113,7 @@ class GUI(App):
 
     def build(self):
         self.buttonList = []
+        self.buttonListNumbers = []
         self.board = Board.Board()
 
         layout = RelativeLayout()
@@ -131,6 +151,10 @@ class GUI(App):
         for i in range(1,10):
             button = Button(text=""+str(i))
             button.background_color = self.switcher.get(i,(1, 1, 1, 1))
+            if(i == self.selected_number):
+                button.color = (1,0,0,1)
+            button.bind(on_press=self.on_select_number)
+            self.buttonListNumbers.append(button)
             gridNumbers.add_widget(button)
 
         layoutBottom.add_widget(grid)
