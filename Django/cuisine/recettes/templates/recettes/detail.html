@@ -1,0 +1,40 @@
+
+{% load staticfiles %}
+<head>
+    <title>Detail</title>
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}"
+</head>
+<body>
+    <table style="border:2px solid black;border-collapse:collapse;text-align:center;width:100%;height:80%;">
+        <tr>
+            <td><img title="{{ recette }}" src="{{ recette.image.url }}" alt="X " width="125" height="125"/></td>
+        </tr>
+        <tr>
+            <td>Nom</td><td>{{ recette.nom }}</td>
+        </tr>
+        <tr>
+            <td>Preparation</td><td>{{ recette.preparation }}</td>
+        </tr>
+        <tr>
+            <td>Note</td><td>{{ recette.note }} / 20</td>
+        </tr>
+        <tr>
+            <td>Ingredients</td>
+        </tr>
+        <tr>
+            <td></td><td>
+            {% for ingredient in recette.ingredients.all %}
+                <img title="{{ ingredient }}" src="{{ ingredient.image.url }}" alt="X " width="125" height="125"/>
+            {% endfor %}
+            </td>
+        </tr>
+    </table>
+    <br>
+    <button onclick="retour()">Retour</button>
+
+    <script>
+        function retour(){
+            window.location.replace("/filtrer")
+        }
+    </script>
+</body>

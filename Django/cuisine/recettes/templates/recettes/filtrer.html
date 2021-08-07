@@ -1,0 +1,36 @@
+
+
+<p><h1 align="center">Annuaire de recettes</h1></p>
+<br>
+<hr>
+<br>
+
+<table>
+    {% for ingredients in ingredients_choisis %}
+        <tr>
+            {% for elem in ingredients %}
+                <td><a href='/supprimer_ingredient/{{ elem.pk }}/'><img title="{{ elem }}" src="{{ elem.image.url }}" alt="X " width="125" height="125"/></p></td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+<hr>
+<button onclick="retour()">Retour</button>
+<hr>
+
+<table>
+    {% for recettes in recettes_choisies %}
+        <tr>
+            {% for elem in recettes%}
+                <td><a href="/detail/{{ elem.pk }}/"><img title="{{ elem }}" src="{{ elem.image.url }}" alt="X " width="125" height="125"/></a></td>
+            {% endfor %}
+        </tr>   
+    {% endfor %}
+</table>
+
+<script>
+    function retour(){
+        window.location.replace("/")
+    }
+</script>
