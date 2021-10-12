@@ -1,0 +1,65 @@
+<html>
+  {% load staticfiles %}
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+  <body>
+    <!----------------------------------------------->
+    <!--Panneau de Gauche-->
+    <!----------------------------------------------->
+    <div class="leftPanel">
+      <!----------------------------------------------->
+      <!--Main de l'adversaire-->
+      <!----------------------------------------------->
+      <div class="mainAdversaire">
+        <div class="divHand"><img src="{% static 'images/head1.png' %}"></div>
+        {% for carte in adversaire.main.getCartesVue8Moins %}
+          <div class="divHand"><img class="adversaireCarte rotateimg180" id="{{ forloop.counter0 }}" src="{% static 'images/verso.jpg' %}"></div>
+        {% endfor %}
+        {% if adversaire.main.getCartesVue8Moins|length == 7 %}
+          <div class="divHand"><img src="{% static 'images/fleche.jpg' %}"></div>
+        {% endif %}
+      </div>
+      <!----------------------------------------------->
+      <!--Terrain-->
+      <!----------------------------------------------->
+      <div class="battlefield">
+          {% block battlefield %}{% endblock %}
+      </div>
+      <!----------------------------------------------->
+      <!--Main du joueur-->
+      <!----------------------------------------------->
+      <div class="mainJoueur" id="2">
+        <div class="divHand"><img src="{% static 'images/joueur1.png' %}"></div>
+        {% if joueur.main.getCartesVue8Moins|length <= 8 %}
+          {% for carte in joueur.main.getCartesVue8Moins %}
+            <div class="divHand"><img class="joueurCarte" id="{{ forloop.counter0 }}" src="{% get_static_prefix %}images/{{ carte.image }}"></div>
+          {% endfor %}
+        {% else %}
+          <div class="divHand rotateimg180 flecheArriere"><img src="{% static 'images/fleche.jpg' %}"></div>
+          {% for carte in joueur.main.getCartesVue9Plus %}
+            <div class="divHand"><img class="joueurCarte" id="{{ forloop.counter0 }}" src="{% get_static_prefix %}images/{{ carte.image }}"></div>
+          {% endfor %}
+          <div class="divHand flecheAvant"><img src="{% static 'images/fleche.jpg' %}"></div>
+        {% endif %}
+      </div>
+    </div>
+    <!----------------------------------------------->
+    <!--Panneau de Droite-->
+    <!----------------------------------------------->
+    <div class="rightPanel">
+      <input type=button value='Click me' id='b1'>
+      <div id=t1></div>
+    </div>
+
+    <div class="invisible">Variable carte selectionnée</div>
+  </body>
+
+
+  <script src="{% static 'jquery-3.6.0.min.js' %}"></script>
+  <script src="{% static 'scripts.js' %}"></script>
+
+  <!--<script type="text/javascript" src="{% static 'script.js' %}"></script>-->
+  {% block script %}
+  {% endblock %}
+</html>

@@ -1,0 +1,138 @@
+/* ctrl + f5 si ça ne se rafraichit pas */
+
+.attaque {
+  background-image: url("../images/icon2.png");
+  background-size: 100% 100%;
+  width: 100%;
+  height: 100%;
+
+  color: black;
+  font-size: 0.6vw;
+}
+
+.divCell > div {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.actionPanneau{
+  position: absolute;
+  top: -30%;
+  right: 20%;
+  font-size: 20;
+  height: 25%
+}
+
+.pvIcon {
+  position: absolute;
+  bottom: 15%;
+  right: 15%;
+  height: 25%;
+  width: 35%;
+
+  color: black;
+  font-size: 1.0vw;
+
+  background-image: url("../images/icon2.png");
+  background-size: 100% 100%;
+}
+
+.attaquePanneau {
+  position: absolute;
+  top: 0%;
+  right: -95%;
+  width: 100%;
+  height: 25%;
+}
+
+.selected {
+  /*box-shadow:inset 0px 0px 0px 2px #f00;*/
+  opacity: 0.4;
+}
+
+.icon {
+
+}
+
+.invisible {
+      visibility:hidden;
+      /*display: None*/
+}
+
+.leftPanel {
+  /*float:left;*/
+  width: 54%;
+  height: 100%;
+}
+
+body {
+  display: flex;
+}
+
+.rightPanel {
+  /*float:right;*/
+  width: 42%;
+  height: 100%;
+}
+
+.rotateimg180 {
+  -webkit-transform:rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.deck {
+  background-image: url("../images/deck1.jpg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  font-weight: bold;
+  color: white;
+  font-size: 1vw;
+  width: 100%;
+  height: 100%;
+}
+
+.divTable{
+
+  background-image: url("../images/tapis2.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+  width:100%;
+  height:100%;
+  /*border:1px solid #666666;*/
+  /*padding: 1% 3.5% 1% 3.5%;
+  border-collapse:separate;*/
+}
+
+.divCell {
+  float:left;/*fix for  buggy browsers*/
+  width:11.1%;
+  height: 16.6%;
+  /*box-shadow:inset 0px 0px 0px 1px #0f0;*/
+  justify-content: center;
+}
+
+img {
+ height: 100%;
+ position: relative;
+}
+
+.divHand {
+  justify-content: center;
+  float:left;
+  width:11.1%;
+}
+
+.mainJoueur {
+  height: 15%;
+  box-shadow:inset 0px 0px 0px 1px #0f0;
+}
+
+.mainAdversaire {
+  height: 15%;
+  box-shadow:inset 0px 0px 0px 1px #0f0;
+}
+
+.battlefield {
+  height: 70%;
+}

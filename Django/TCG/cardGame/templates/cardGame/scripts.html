@@ -1,0 +1,15 @@
+{% extends 'cardGame/structure.html' %}
+{% load static %}
+
+{% block script %}
+
+<script>
+  //------------------------------------------------
+  //--- Highlight d'une carte par defaut
+  //------------------------------------------------
+  $(document).ready(function () {
+    //alert("selectRefresh : pos={{selection.pos}} type={{selection.type}} "+$(document).find("#{{selection.pos}}.{{selection.type}}"))
+    $(document).find("#{{selection.pos}}.{{selection.type}}").addClass("selected")
+  })
+</script>
+{% endblock %}

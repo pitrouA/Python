@@ -1,0 +1,16 @@
+[
+  {
+    "model": "cardGame.Type",
+    "pk": 1,
+    "fields": {
+      "name": "Eau"
+    }
+  },
+  {
+    "model": "cardGame.Type",
+    "pk": 2,
+    "fields": {
+      "name": "Combat"
+    }
+  }
+]

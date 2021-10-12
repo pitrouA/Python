@@ -1,0 +1,126 @@
+{% extends 'cardGame/scripts.html' %}
+{% load static %}
+
+{% block battlefield %}
+<div class="divTable">
+  {% for lines in '012345'|make_list %}
+  <div class="divRow">
+    {% for column in '012345678'|make_list %}
+    <div class="divCell">
+      <!----------------------------------------------->
+      <!--Adversaire->
+      <!----------------------------------------------->
+      <!----------------------------------------------->
+      <!--Ligne 0-->
+      <!----------------------------------------------->
+      {% if lines == "0" and column == "0" %}
+        <div><img class="rotateimg180" src="{% static 'images/deck1.jpg' %}"></div>
+      {% elif lines == '0' and column == '2' %}
+        <div><img id="4" src="{% get_static_prefix %}images/{{ adversaire.banc.getCard4 }}" {% if adversaire.banc.cartes.4 != None %} class="adversaireCarteBanc rotateimg180" {% else %} class="zoneCarteBanc, rotateimg180" {% endif %}></div>
+      {% elif lines == "0" and column == "3" %}
+        <div><img id="3" src="{% get_static_prefix %}images/{{ adversaire.banc.getCard3 }}" {% if adversaire.banc.cartes.3 != None %} class="adversaireCarteBanc rotateimg180" {% else %} class="zoneCarteBanc, rotateimg180" {% endif %}></div>
+      {% elif lines == "0" and column == "4" %}
+        <div><img id="2" src="{% get_static_prefix %}images/{{ adversaire.banc.getCard2 }}" {% if adversaire.banc.cartes.2 != None %} class="adversaireCarteBanc rotateimg180" {% else %} class="zoneCarteBanc, rotateimg180" {% endif %}></div>
+      {% elif lines == "0" and column == "5" %}
+        <div><img id="1" src="{% get_static_prefix %}images/{{ adversaire.banc.getCard1 }}" {% if adversaire.banc.cartes.1 != None %} class="adversaireCarteBanc rotateimg180" {% else %} class="zoneCarteBanc, rotateimg180" {% endif %}></div>
+      {% elif lines == "0" and column == "6" %}
+        <div><img id="0" src="{% get_static_prefix %}images/{{ adversaire.banc.getCard0 }}" {% if adversaire.banc.cartes.0 != None %} class="adversaireCarteBanc rotateimg180" {% else %} class="zoneCarteBanc, rotateimg180" {% endif %}></div>
+      {% elif lines == "0" and column == "7" %}
+        <div><img class="rotateimg180" src="{% get_static_prefix %}images/{{ adversaire.recompenses.5 }}"></div>
+      {% elif lines == "0" and column == "8" %}
+        <div><img class="rotateimg180" src="{% get_static_prefix %}images/{{ adversaire.recompenses.4 }}"></div>
+      <!----------------------------------------------->
+      <!--Ligne 1-->
+      <!----------------------------------------------->
+      {% elif lines == "1" and column == "0" %}
+        <div><img class="rotateimg180" src="{% get_static_prefix %}images/{{ adversaire.defausse.0 }}"></div>
+      {% elif lines == "1" and column == "7" %}
+        <div><img class="rotateimg180" src="{% get_static_prefix %}images/{{ adversaire.recompenses.3 }}"></div>
+      {% elif lines == "1" and column == "8" %}
+        <div><img class="rotateimg180" src="{% get_static_prefix %}images/{{ adversaire.recompenses.2 }}"></div>
+      <!----------------------------------------------->
+      <!--Ligne 2-->
+      <!----------------------------------------------->
+      {% elif lines == "2" and column == "4" %}
+        <div><img id ="0" src="{% get_static_prefix %}images/{{ adversaire.getPokemonActifImage }}" {% if adversaire.pokemonActif != None %} class="adversaireCartePokemonActif rotateimg180" {% else %} class="zoneCarteActif, rotateimg180" {% endif %}></div>
+      {% elif lines == "2" and column == "7" %}
+        <div><img class="rotateimg180" src="{% get_static_prefix %}images/{{ adversaire.recompenses.1 }}"></div>
+      {% elif lines == "2" and column == "8" %}
+        <div><img class="rotateimg180" src="{% get_static_prefix %}images/{{ adversaire.recompenses.0 }}"></div>
+      <!----------------------------------------------->
+      <!--Joueur->
+      <!----------------------------------------------->
+      <!----------------------------------------------->
+      <!--Ligne 3-->
+      <!----------------------------------------------->
+      {% elif lines == "3" and column == "0" %}
+        <div><img src="{% get_static_prefix %}images/{{ joueur.recompenses.0 }}"></div>
+      {% elif lines == "3" and column == "1" %}
+        <div><img src="{% get_static_prefix %}images/{{ joueur.recompenses.1 }}"></div>
+      {% elif lines == "3" and column == "2" %}
+        <div><img src="{% get_static_prefix %}images/{{ joueur.recompenses.2 }}"></div>
+      {% elif lines == "3" and column == "3" %}
+        <div><img src="{% get_static_prefix %}images/{{ joueur.recompenses.2 }}"></div>
+      {% elif lines == "3" and column == "4" %}
+        <div>
+          <img id ="0" src="{% get_static_prefix %}images/{{ joueur.getPokemonActifImage }}" {% if joueur.pokemonActif != None %} class="joueurCartePokemonActif" {% else %} class="zoneCarteActif" {% endif %}>
+          <div class="actionPanneau">
+            <img class="icon retraite" src="{% get_static_prefix %}images/icon2.png">
+            <img class="icon pokePower" src="{% get_static_prefix %}images/icon2.png">
+          </div>
+          <div class="pvIcon">150</div>
+          <div class="attaquePanneau">
+            <div class="attaque">Griffe du Dragontttt</div>
+            <img class="icon" src="{% get_static_prefix %}images/icon2.png"><br>
+            <img class="icon" src="{% get_static_prefix %}images/icon2.png"><br>
+            <img class="icon" src="{% get_static_prefix %}images/icon2.png"><br>
+            <img class="icon" src="{% get_static_prefix %}images/icon2.png"><br>
+            <img class="icon" src="{% get_static_prefix %}images/icon2.png"><br>
+            <img class="icon" src="{% get_static_prefix %}images/icon2.png"><br>
+            <img class="icon" src="{% get_static_prefix %}images/icon2.png">
+          </div>
+        </div>
+      {% elif lines == "3" and column == "6" %}
+        <div><img src="{% get_static_prefix %}images/{{ joueur.recompenses.2 }}"></div>
+      <!----------------------------------------------->
+      <!--Ligne 4-->
+      <!----------------------------------------------->
+      {% elif lines == "4" and column == "0" %}
+        <div><img src="{% get_static_prefix %}images/{{ joueur.recompenses.2 }}"></div>
+      {% elif lines == "4" and column == "1" %}
+        <div><img src="{% get_static_prefix %}images/{{ joueur.recompenses.3 }}"></div>
+      {% elif lines == "4" and column == "8" %}
+        <div><img src="{% get_static_prefix %}images/{{ joueur.defausse.0 }}"></div>
+      <!----------------------------------------------->
+      <!--Ligne 5-->
+      <!----------------------------------------------->
+      {% elif lines == "5" and column == "0" %}
+        <div><img src="{% get_static_prefix %}images/{{ joueur.recompenses.4 }}"></div>
+      {% elif lines == "5" and column == "1" %}
+        <div><img src="{% get_static_prefix %}images/{{ joueur.recompenses.5 }}"></div>
+      {% elif lines == "5" and column == "2" %}
+        <div>
+          <img id="0" src="{% get_static_prefix %}images/{{ joueur.banc.getCard0 }}" {% if joueur.banc.cartes.0 != None %} class="joueurCarteBanc" {% else %} class="zoneCarteBanc" {% endif %}>
+          <div class='pvIcon'>
+            <img class='icon' src="{% get_static_prefix %}images/icon1.png"><br>
+          </div>
+        </div>
+      {% elif lines == "5" and column == "3" %}
+        <div><img id="1" src="{% get_static_prefix %}images/{{ joueur.banc.getCard1 }}" {% if joueur.banc.cartes.1 != None %} class="joueurCarteBanc" {% else %} class="zoneCarteBanc" {% endif %}><div>50</div></div>
+      {% elif lines == "5" and column == "4" %}
+        <div><img id="2" src="{% get_static_prefix %}images/{{ joueur.banc.getCard2 }}" {% if joueur.banc.cartes.2 != None %} class="joueurCarteBanc" {% else %} class="zoneCarteBanc" {% endif %}><div>50</div></div>
+      {% elif lines == "5" and column == "5" %}
+        <div><img id="3" src="{% get_static_prefix %}images/{{ joueur.banc.getCard3 }}" {% if joueur.banc.cartes.3 != None %} class="joueurCarteBanc" {% else %} class="zoneCarteBanc" {% endif %}></div>
+      {% elif lines == "5" and column == "6" %}
+        <div><img id="4" src="{% get_static_prefix %}images/{{ joueur.banc.getCard4 }}" {% if joueur.banc.cartes.4 != None %} class="joueurCarteBanc" {% else %} class="zoneCarteBanc" {% endif %}></div>
+      {% elif lines == "5" and column == "8" %}
+      <!---->
+        <div class="deck">{{joueur.deck.nbCartes}}</div>
+      {% endif %}
+    </div>
+    {% endfor %}
+</div>
+  {% endfor %}
+</div>
+
+{% endblock %}

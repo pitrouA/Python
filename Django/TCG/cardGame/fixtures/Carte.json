@@ -1,0 +1,1 @@
+[{"model": "cardGame.carte", "pk": 1, "fields": {"name": "Machoc", "image": "machoc.png", "rarity": 5}}, {"model": "cardGame.carte", "pk": 2, "fields": {"name": "Rattata", "image": "rattata.jpg", "rarity": 2}}, {"model": "cardGame.carte", "pk": 3, "fields": {"name": "Energie Combat", "image": "energieCombat.jpg", "rarity": 1}}]
